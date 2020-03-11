@@ -1,0 +1,8 @@
+IMPORTANTE: Actualización Firebase
+En el siguiente video instalamos Firebase y lo configuramos, pero en versiones actuales 5.x ya no es necesario ejecutar el código:
+
+firebaseApp.firestore().settings({timestampsInSnapshots: true})
+
+Solo tienen que dejar la exportación de  firebaseApp.firestore()
+
+Saludos y nos vemos en el siguiente video :)
