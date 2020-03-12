@@ -14,11 +14,19 @@ export default new Vuex.Store({
   },
   //ejecuta una funcion para que luego las action puedan implementarlas en su commit
   mutations: {
+
     setTareas(state, tareas) {
       state.tareas = tareas
     },
+
     setTarea(state, tarea) {
       state.tarea = tarea
+    },
+
+    eliminarTarea(state, id) {
+      state.tareas = state.tareas.filter( t => {
+        return t.id != id
+      })
     }
   },
 
@@ -36,7 +44,7 @@ export default new Vuex.Store({
           tareas.push(tarea)
         })
       })
-
+      //cambio la state local
       commit('setTareas', tareas)
     },
 
@@ -65,7 +73,16 @@ export default new Vuex.Store({
       .then( () => {
         router.push({name: 'inicio'})
       })
-    }
+    },
+
+    eliminarTarea({commit, dispatch}, id) {
+      db.collection('tareas').doc(id).delete()
+      .then( () => {
+        console.log(`tarea fue eliminada`)
+        //dispatch('getTareas') no tan elegante pero funciona de llamar a una accion
+        commit('eliminarTarea', id)
+      })
+    },
   },
   modules: {
   }
